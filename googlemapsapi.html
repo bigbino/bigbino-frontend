@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>s
+    <!-- HTML5 -->
+    <meta charset="utf-8"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script
+            src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB0-G7-fKVlyfPsYn79mK-zS7Wof1xq6bY&sensor=false">
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+    <script>
+        var centro = new google.maps.LatLng(-6.485284,-38.312624);
+        var geocoder = new google.maps.Geocoder();
+        var map;
+        var marcador;
+        var tipo_icone;
+
+        $(document).ready(function(){
+            initialize();
+
+            //alert("teste");
+
+            //$.getJSON( "test.js", function( json ) {
+            //  console.log( "JSON Data: " + json.users[ 3 ].name );
+            //});
+
+            $.ajax(
+                {
+                    type: "GET",
+                    url: "http://localhost:8080/api/v1/localizacaoObra/pontosObrasNegativos",
+                    async: true,
+                    beforeSend: function() {
+                        //alert("Carregando...");
+                    },
+                    error: function(data) {
+                        //alert(data)
+                        //alert("Erro ao consultar as informações...");
+                    },
+                    success: function(data) {
+                        Object.keys(data).forEach(function(k){
+                            if(k == 2) {
+                                //alert(data[k].longitude + ',' + data[k].latitude);
+                                localizar2(data[k].latitude + ',' + data[k].longitude, "<b>Obra:</b> REFORMA DO CENTRO DE CONVENÇÕES <br>" +
+                                    "\n" +
+                                    "<b>Contratante:</b> PREFEITURA MUNICIPAL DE TABOLEIRO GRANDE<br>" +
+                                    "\n" +
+                                    "<b>CNPJ:</b> 15102288028516<br>" +
+                                    "\n" +
+                                    "<b>Valor:</b> 245043,80");
+                            }else{
+                                localizar(data[k].latitude + ',' + data[k].longitude);
+                            }
+                        });
+                    }
+                }
+            );
+
+
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/api/v1/localizacaoObra/pontosObras", // Using our resources.json file to serve results
+                dataType: "json",
+                success: function(result) {
+                    console.log(result);
+                    var output =
+                        "<table><thead><tr><th>Name</th><th>Provider</th><th>URL</th></thead><tbody>";
+                    for (var i in result) {
+                        output +=
+                            "<tr><td>" +
+                            result[i].name +
+                            "</td><td>" +
+                            result[i].provider +
+                            "</td><td>" +
+                            result[i].url +
+                            "</td></tr>";
+                    }
+                    output += "</tbody></table>";
+
+                    displayResources.html(output);
+                    $("table").addClass("table");
+                }
+            });
+
+            //localizar("-6.477335,-38.315696")
+
+            //localizar("-6.477335,-38.315696")
+
+            //localizar("-6.448693,-38.269549")
+
+            //localizar("-6.485345,-38.311703")
+
+            $("#botao1").click(function(){
+                localizar($("#local").val());
+
+            });
+        });
+
+        function localizar(address, info) {
+
+            geocoder.geocode( { 'address': address}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    /*var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                    });*/
+                    //marker.setMap(map);
+                    placeMarker2(results[0].geometry.location, info);
+
+                } else {
+                    console('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+
+        function localizar2(address, info) {
+
+            geocoder.geocode( { 'address': address}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    /*var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location
+                    });*/
+                    //marker.setMap(map);
+                    placeMarker(results[0].geometry.location, info);
+
+                } else {
+                    console('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+
+        function placeMarker(location, texto) {
+            marcador = document.getElementById("marcador").value;
+
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map,
+                //icon:'gmap_marker.png',
+            });
+            var infowindow = new google.maps.InfoWindow({
+                content: texto
+            });
+            infowindow.open(map,marker);
+        }
+
+        function placeMarker2(location, texto) {
+            marcador = document.getElementById("marcador").value;
+
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map,
+                //icon:'gmap_marker.png',
+            });
+            //var infowindow = new google.maps.InfoWindow({
+            //  content: texto
+            //});
+            infowindow.open(map,marker);
+        }
+
+        function initialize() {
+            var mapProp = {
+                center:centro,
+                zoom:10,
+                mapTypeId:google.maps.MapTypeId.ROADMAP
+            };
+
+            map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+            // Create the search box and link it to the UI element.
+            //var input = (document.getElementById('info'));
+            //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            //var searchBox = new google.maps.places.SearchBox((input));
+
+            //var mark = (document.getElementById('local'));
+            //map.controls[google.maps.ControlPosition.TOP_LEFT].push(mark);
+
+
+            var marker=new google.maps.Marker({
+                position:centro,
+                animation:google.maps.Animation.BOUNCE
+            });
+
+            marker.setMap(map);
+
+            google.maps.event.addListener(map, 'click', function(event) {
+
+                placeMarker(event.latLng, $("#info").val());
+            });
+
+        }
+    </script>
+
+</head>
+
+<body>
+<select id="marcador">
+    <option value="1">Marcador 01</option>
+    <option value="2">Marcador 02</option>
+    <option value="3">Marcador 03</option>
+</select>
+<input id="info" type="text"/>
+<input id="local" type="text"/> <button id="botao1">OK</button>
+</br>
+<div id="googleMap" style="width:1300px;height:550px"></div>
+
+<div></div>
+</body>
+</html>
+
