@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
-    <side-bar :background-color="sidebarBackground" short-title="Argon" title="Argon">
+    <side-bar :background-color="sidebarBackground" short-title="BigBino" title="BigBino">
       <template slot="links">
         <!-- <sidebar-item
           :link="{
