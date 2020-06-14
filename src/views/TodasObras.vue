@@ -267,7 +267,6 @@ export default {
           this.isLoading = false;
         },
         response => {
-          console.log("Erro ao carregar obras", response);
           this.isLoading = false;
         }
       );
@@ -283,13 +282,11 @@ export default {
           this.isLoading = false;
         },
         response => {
-          console.log("Erro ao carregar obras", response);
           this.isLoading = false;
         }
       );
     },
     abrirModalInfoObra(obra) {
-      console.log("Cliquei");
       // eslint-disable-next-line
       this.obraSelecionada = obra;
       this.modalInfoObra = true;

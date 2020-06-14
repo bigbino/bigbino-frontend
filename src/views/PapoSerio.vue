@@ -3,21 +3,21 @@
     <v-container>
       <v-layout row wrap>
         <v-flex xs5 md5>
-          <router-link to="/praondevai">
+          <router-link to="/sabetudo">
             <v-img src="img/others/6.png" aspect-ratio="1" max-width="256" max-height="256" />
             <div class="title mb-1" align="center">Bino é chapa e sabe tudo que eu tenho!</div>
           </router-link>
         </v-flex>
         <v-flex xs2 md2></v-flex>
         <v-flex xs5 md5>
-          <router-link to="/vamosimbora">
+          <router-link to="/teajudasaude">
             <v-img src="img/others/7.png" aspect-ratio="1" max-width="256" max-height="256" />
             <div class="title mb-1" align="center">Bino te ajuda a achar um ponto de saúde</div>
           </router-link>
         </v-flex>
         <v-flex xs4 md4></v-flex>
         <v-flex xs5 md5>
-          <router-link to="/vamosimbora">
+          <router-link to="/manteratualizado">
             <v-img src="img/others/8.png" aspect-ratio="1" max-width="256" max-height="256" />
             <div class="title mb-1" align="center">Vamos manter Bino atualizado?</div>
           </router-link>

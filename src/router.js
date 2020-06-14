@@ -22,6 +22,41 @@ export default new Router({
             import(/* webpackChunkName: "demo" */ "./views/Dashboard.vue"),
         },
         {
+          path: "/listar_denuncia",
+          name: "listar_denuncia",
+          component: () => import("./views/ListarDenuncia.vue"),
+        },
+        {
+          path: "nova_denuncia",
+          name: "nova_denuncia",
+          component: () => import("./views/NovaDenuncia.vue"),
+        },
+        {
+          path: "/visaogeral",
+          name: "visaogeral",
+          component: () => import("./views/VisaoGeral.vue"),
+        },
+        {
+          path: "/todas_obras",
+          name: "todas_obras",
+          component: () => import("./views/TodasObras.vue"),
+        },
+        {
+          path: "/todas_empresas",
+          name: "todas_empresas",
+          component: () => import("./views/TodasEmpresas.vue"),
+        },
+        {
+          path: "/estatisticas",
+          name: "estatisticas",
+          component: () => import("./views/Estatisticas.vue"),
+        },
+        {
+          path: "/sobre",
+          name: "sobre",
+          component: () => import("./views/Sobre.vue"),
+        },
+        {
           path: "/penaestrada",
           name: "penaestrada",
           component: () => import("./views/PeNaEstrada.vue"),

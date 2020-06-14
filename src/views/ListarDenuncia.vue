@@ -16,9 +16,7 @@
               class="elevation-1"
             >
               <template v-slot:items="props">
-                <td
-                  class="text-xs-left"
-                >{{ props.item.nome }}</td>
+                <td class="text-xs-left">{{ props.item.nome }}</td>
                 <td>{{ props.item.matricula }}</td>
                 <td>{{ props.item.curso }}</td>
                 <td>{{ props.item.periodoIngresso }}</td>
@@ -41,7 +39,6 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -230,8 +227,7 @@ export default {
         { text: "Período de Ingresso", value: "periodoIngresso" },
         { text: "Situação", value: "status" }
       ],
-      alunos: [
-      ]
+      alunos: []
     };
   },
   computed: {
@@ -253,7 +249,6 @@ export default {
   methods: {
     abrirModalInfoAluno(aluno) {
       // eslint-disable-next-line
-      console.log("Entrei aqui com...", aluno);
       this.alunoEscolhido = aluno;
       this.modalInfoAluno = true;
     }
@@ -266,7 +261,7 @@ export default {
   margin: 1em;
 }
 
-.v-flex{
-    font-size: 10px !important;
+.v-flex {
+  font-size: 10px !important;
 }
 </style>

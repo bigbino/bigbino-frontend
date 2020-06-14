@@ -245,7 +245,6 @@ export default {
           this.isLoading = false;
         },
         response => {
-          console.log("Erro ao carregar obras", response);
           this.isLoading = false;
         }
       );
